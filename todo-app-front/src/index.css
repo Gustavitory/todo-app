@@ -1,3 +1,33 @@
+:root{
+  --title-type-1:'Montserrat', sans-serif;
+  --title-type-2:'Montserrat', sans-serif;
+  --text-color:#6E6B7B;
+  --text-hard-color:#5E5873;
+  --border-input-color:#B9B9C3;
+  --background-light-grey:#F5F5F5;
+  --background-hard-grey:#A4ACB912;
+  --white:white;
+  --white-light:#ffffff33;
+  --red:#E73B3C;
+  --primary-color:#3CBBD6;
+  --primary-color-transparency:#3cbad635;
+  --secondary-color:#33BB99;
+  --success-color:#8438FF;
+  --base-purple-color:#7367F0;
+  --danger-color:#E73B3C;
+  --danger-shadow-color:#E73B3C20;
+  --danger-transparent-color:#E73B3C12;
+  --warning-color:#FF7438;
+  --warning-shadow-color:#FF743820;
+  --warning-transparent-color:#ff743812;
+  --info-color:#FCC235;
+  --dark-color:#3B3C3D;
+  --light-color:#A4ACB9;
+  --online-green-color:#28C76F;
+  --online-green-shadow-color:#28C76F20;
+  --online-green-transparent-color:#28C76F12;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -10,4 +40,37 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+input{
+  outline: none;
+  background: white;
+  border-radius: 4px;
+  padding: 10px;
+  color: var(--text-color);
+  border: 1px solid var(--border-input-color) ;
+  width: 100%;
+  font-size: 16px;
+}
+
+.errorText{
+  position: absolute;
+  color: var(--red);
+  left: 0;
+  bottom: -20px;
+  font-size: 12px;
+}
+
+input.errorInput{
+  border: 1px solid var(--red);
+}
+.fade.modal.show{
+  backdrop-filter: blur(10px);
+}
+.btn.btn-primary{
+  background:var(--primary-color);
+  border:none;
+}
+.btn.btn-primary:hover{
+  background:var(--primary-color);
+  filter: brightness(1.1);
 }

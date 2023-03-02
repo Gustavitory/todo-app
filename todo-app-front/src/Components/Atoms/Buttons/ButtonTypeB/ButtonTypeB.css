@@ -1,0 +1,16 @@
+.buttonTypeB{
+    background-color: var(--bg);
+    font-size: 15px;
+    color: white;
+    border:1.5px solid var(--bg);
+    box-shadow: none;
+    padding: 8px 25px;
+    width: max-content;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: .25s;
+    z-index: 1;
+}
+.buttonTypeB:hover{
+    filter:brightness(1.1);
+}
