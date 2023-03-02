@@ -1,0 +1,7 @@
+.ContentCont{
+    background:var(--white);
+    margin:0;
+    padding:3em;
+    display:flex;
+    border-radius: 1em;
+}
