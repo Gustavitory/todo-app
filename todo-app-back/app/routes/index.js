@@ -1,5 +1,4 @@
 const express=require("express")
-const routerLogin = require("./login")
 const routertasks = require("./tasks")
 const router=express.Router()
 const jwt=require('jsonwebtoken');
@@ -24,7 +23,6 @@ router.use(async (req,res,next)=>{
 })
 
 router.use("/tasks",routertasks);
-router.use("/login",routerLogin);
 router.use('/user',userLogin);
 
 module.exports=router

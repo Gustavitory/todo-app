@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState } from 'react';
+import { login } from '../../../API';
 
 interface LoginFormReq{
     userName:string,
@@ -46,7 +47,7 @@ export const useLoginForm = () => {
         let isValid=checkForm();
         console.log(checkForm())
         if(isValid){
-            alert('Submit!')
+            return login({userName:loginForm.userName,password:loginForm.password})
         }
     }
 
