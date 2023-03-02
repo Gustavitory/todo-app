@@ -5,6 +5,7 @@ import {createBrowserRouter,RouterProvider} from 'react-router-dom'
 import ErrorPage from './Components/Screens/ErrorScreen/ErrorScreen';
 import { LandingPage } from './Components/Screens/Landing/LandingPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { AppLayout } from './Components/Layout/App/AppLayout';
 
 const router=createBrowserRouter([
   {
@@ -14,9 +15,19 @@ const router=createBrowserRouter([
   },
   {
     path:"/app",
-    element:<h1>App Page</h1>,
+    element:<AppLayout/>,
     errorElement:<ErrorPage/>,
-    children:[]
+    children:[
+      {
+        path:"",
+        element:<h1>Tareas</h1>,
+        index:true
+      },
+      {
+        path:'metrics',
+        element:<h1>Metricas</h1>
+      }
+    ]
   }
 ])
 

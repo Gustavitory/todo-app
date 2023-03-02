@@ -1,10 +1,9 @@
-// import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useRegisterForm } from '../../../Hooks/Forms/useRegisterForm';
 import { PasswordInput } from '../../../Atoms/Inputs/PasswordInput/PasswordInput';
 import { StandardInput } from '../../../Atoms/Inputs/StandardInput/StandardInput';
-// import { ButtonTypeA } from '../../../Atoms/Buttons/ButtonTypeA/ButtonTypeA';
+import Swal from 'sweetalert2';
 
 interface modalRegisterFormProps{
     controller:(status:boolean)=>void;
@@ -12,7 +11,23 @@ interface modalRegisterFormProps{
 }
 
 export function ModalRegisterForm({controller,state}:modalRegisterFormProps) {
-  const {errors,submit,change}=useRegisterForm()
+  const {errors,submit,change,reset}=useRegisterForm();
+
+  const registrar=(e:React.FormEvent)=>{
+    submit(e)
+    .then((result)=>{
+      if(!result.status){
+        throw new Error(result.error)
+      }
+      else{
+        Swal.fire({title:'Bienvenido!',text:'Ya te has registrado.',icon:'success',confirmButtonColor:'#3CBBD6'})
+        .then(()=>{
+          reset()
+          controller(false)})
+      }
+    }).catch((err)=>{
+      Swal.fire({title:'Uups...',text:err.message,icon:'error',confirmButtonColor:'#3CBBD6'})})
+    }
 
   return (
     <>
@@ -33,10 +48,10 @@ export function ModalRegisterForm({controller,state}:modalRegisterFormProps) {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={()=>controller(false)}>
-            Close
+            Cerrar
           </Button>
-          <Button variant="primary" onClick={(e)=>submit(e)}>
-            Save Changes
+          <Button variant="primary" onClick={(e)=>registrar(e)}>
+            Registrar
           </Button>
         </Modal.Footer>
       </Modal>

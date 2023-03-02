@@ -2,8 +2,7 @@ require("dotenv").config();
 const express=require("express");
 const router = require("./routes");
 const cors=require('cors');
-const routerLogin = require("./routes/login");
-const { login } = require("../db/controllers/login");
+const { register, login } = require("../db/controllers/login");
 const {PORT}=process.env
 
 const config={
@@ -35,8 +34,8 @@ app.use(express.json())
 app.get('/',(req,res)=>{
     res.send('Hello World')
 })
-app.use('/auth',login);
-app.use('/login',routerLogin);
+app.use('/register',register);
+app.use('/login',login)
 app.use('/',router);
 
 

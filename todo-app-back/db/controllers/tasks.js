@@ -56,9 +56,7 @@ async function createAleatoriesTasks(req,res){
         const promisesArray=[];
         const user=await User.findByPk(id);
         for(let i=0;i<50;i++){
-            const today=moment();
-            const weekDay={days:today.day(),hours:today.hours(),minutes:today.minutes()};
-            const weekInit=moment().subtract(weekDay).add({days:1+getRandomInt(0,30)});
+            const weekInit=moment().subtract({days:7}).add({days:getRandomInt(0,8)});
             const dateRand= new Date(weekInit.toISOString().split('T')[0]);
             promisesArray.push(
                     Task.create({name:`Task ${i+1}`,description:'Aleatory task',

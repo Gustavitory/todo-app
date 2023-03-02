@@ -1,15 +1,14 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
+import { SideBar } from '../../Organisms/SideBar/SideBar';
+import './AppLayout.css';
 
 export const AppLayout = () => {
   return (
-    <div>
-        <div>SideBar</div>
+    <div className='AppLayoutCont'>
+        <SideBar/>
         <div>
-            <div>Navbar</div>
-            <div>
-                <Outlet/>
-            </div>
+          <Outlet/>
         </div>
     </div>
   )

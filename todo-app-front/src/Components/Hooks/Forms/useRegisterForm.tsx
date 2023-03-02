@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState } from 'react';
+import { register } from '../../../API';
 
 interface RegisterFormReq{
     userName:string;
@@ -51,9 +52,16 @@ export const useRegisterForm = () => {
         e.preventDefault();
         let isValid=checkForm();
         if(isValid){
-            console.log('Submit!')
+            return register({userName:loginForm.userName,password:loginForm.password})
         }
     }
-  return {change,errors,submit}
+    const reset=()=>{
+        setLoginForm({...loginForm,
+            userName:'',
+            password:'',
+            confirmPassword:'',
+        })
+    }
+  return {change,errors,submit,reset}
   
 }
