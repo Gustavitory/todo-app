@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 export const LoginForm = () => {
-    const {errors,change,submit} =useLoginForm()
+    const {errors,change,submit,checkForm} =useLoginForm()
     const [modal,setModal]=useState(false);
     const controller=(estado:boolean)=>{
         setModal(estado)
@@ -28,7 +28,7 @@ export const LoginForm = () => {
           navigate("/app")
         }
       }).catch((err)=>{
-        Swal.fire({title:'Uups...',text:err.message,icon:'error',confirmButtonColor:'#3CBBD6'})
+        if(checkForm())Swal.fire({title:'Uups...',text:err.message,icon:'error',confirmButtonColor:'#3CBBD6'})
       })
     }
   return (

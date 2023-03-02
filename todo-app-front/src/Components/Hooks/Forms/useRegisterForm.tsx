@@ -1,7 +1,6 @@
 import React from 'react'
 import { useState } from 'react';
 import { register } from '../../../API';
-import { LoginForm } from '../../Molecules/Forms/LoginForm/LoginForm';
 
 interface RegisterFormReq{
     userName:string;

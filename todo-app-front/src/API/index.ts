@@ -38,7 +38,6 @@ const loginOptions=(header:any,type:string)=>{
     try{
       const user= await fetch(`${Url}/login`,loginOptions(header,'GET'));
       const data=await user.json();
-      console.log(data);
       return data;
     }catch(err){console.log(err)}
   }

@@ -34,10 +34,6 @@ export const useLoginForm = () => {
             validations.password='Este campo es requerido.';
             isValid=false;
         }
-        else if(password.length<8){
-            validations.password='La contraseña debe tener 8 caracteres como mínimo.';
-            isValid=false;
-        }
         setErrors({...validations});
         return isValid;
     }
@@ -45,13 +41,12 @@ export const useLoginForm = () => {
     const submit=async (e:React.FormEvent)=>{
         e.preventDefault();
         let isValid=checkForm();
-        console.log(checkForm())
         if(isValid){
             return login({userName:loginForm.userName,password:loginForm.password})
         }
     }
 
 
-  return {change,errors,submit}
+  return {change,errors,submit,checkForm}
   
 }
