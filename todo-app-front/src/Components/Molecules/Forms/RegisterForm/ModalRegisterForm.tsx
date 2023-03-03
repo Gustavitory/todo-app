@@ -3,32 +3,18 @@ import Modal from 'react-bootstrap/Modal';
 import { useRegisterForm } from '../../../Hooks/Forms/useRegisterForm';
 import { PasswordInput } from '../../../Atoms/Inputs/PasswordInput/PasswordInput';
 import { StandardInput } from '../../../Atoms/Inputs/StandardInput/StandardInput';
-import Swal from 'sweetalert2';
-
 interface modalRegisterFormProps{
     controller:(status:boolean)=>void;
     state:boolean;
 }
 
 export function ModalRegisterForm({controller,state}:modalRegisterFormProps) {
-  const {errors,submit,change,reset}=useRegisterForm();
+  const {errors,submit,change}=useRegisterForm();
 
   const registrar=(e:React.FormEvent)=>{
     submit(e)
-    .then((result)=>{
-      if(!result.status){
-        throw new Error(result.error)
-      }
-      else{
-        Swal.fire({title:'Bienvenido!',text:'Ya te has registrado.',icon:'success',confirmButtonColor:'#3CBBD6'})
-        .then(()=>{
-          reset()
-          controller(false)})
-      }
-    }).catch((err)=>{
-      Swal.fire({title:'Uups...',text:err.message,icon:'error',confirmButtonColor:'#3CBBD6'})})
-    }
-
+    .then(()=>controller(false))
+  }
   return (
     <>
       <Button variant="primary" onClick={()=>controller(true)}>

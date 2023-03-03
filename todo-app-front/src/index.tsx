@@ -6,6 +6,8 @@ import ErrorPage from './Components/Screens/ErrorScreen/ErrorScreen';
 import { LandingPage } from './Components/Screens/Landing/LandingPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { AppLayout } from './Components/Layout/App/AppLayout';
+import { Provider } from 'react-redux';
+import Store from './Redux/Store';
 
 const router=createBrowserRouter([
   {
@@ -35,7 +37,9 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
+<Provider store={Store}>
   <React.StrictMode>
     <RouterProvider router={router}/>
   </React.StrictMode>
+</Provider>
 );

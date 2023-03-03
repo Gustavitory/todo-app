@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react';
-import { register } from '../../../API';
+// import { register } from '../../../API';
+import { useRegister } from '../API/Auth/useRegister';
 
 interface RegisterFormReq{
     userName:string;
@@ -9,6 +10,7 @@ interface RegisterFormReq{
 }
 
 export const useRegisterForm = () => {
+    const {register}=useRegister()
     const initialState={
         userName:'',password:'',confirmPassword:''
     }
@@ -53,6 +55,7 @@ export const useRegisterForm = () => {
         let isValid=checkForm();
         if(isValid){
             return register({userName:loginForm.userName,password:loginForm.password})
+            .then(()=>reset())
         }
     }
     const reset=()=>{
@@ -62,6 +65,6 @@ export const useRegisterForm = () => {
             confirmPassword:'',
         })
     }
-  return {change,errors,submit,reset}
+  return {change,errors,submit}
   
 }

@@ -7,7 +7,7 @@ export const AppLayout = () => {
   return (
     <div className='AppLayoutCont'>
         <SideBar/>
-        <div>
+        <div className='contentLayout'>
           <Outlet/>
         </div>
     </div>
