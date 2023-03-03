@@ -7,29 +7,16 @@ import { ContentCont } from '../../../Layout/Landing/Content/ContentCont';
 import { ParrafoTipeA } from '../../../Atoms/Parrafos/ParrafoTypeA/ParrafoTypeA';
 import { ModalRegisterForm } from '../RegisterForm/ModalRegisterForm';
 import { useState } from 'react';
-import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router-dom';
 
 
 export const LoginForm = () => {
-    const {errors,change,submit,checkForm} =useLoginForm()
+    const {errors,change,submit} =useLoginForm()
     const [modal,setModal]=useState(false);
     const controller=(estado:boolean)=>{
         setModal(estado)
     }
-    let navigate=useNavigate();
     const logear=(e:React.FormEvent)=>{
       submit(e)
-      .then((result)=>{
-        if(!result.status){
-          throw new Error(result.error)
-        }else{
-          window.localStorage.setItem('todoToken',result.token);
-          navigate("/app")
-        }
-      }).catch((err)=>{
-        if(checkForm())Swal.fire({title:'Uups...',text:err.message,icon:'error',confirmButtonColor:'#3CBBD6'})
-      })
     }
   return (
     <ContentCont>

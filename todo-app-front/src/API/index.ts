@@ -1,21 +1,35 @@
-const tokenFinder= ()=>{
+export interface headerLogin{
+  userName:string;
+  password:string;
+}
+
+export interface editCreateTask{
+  name?:string;
+  description?:string;
+  finishdate?:Date;
+  status?:'Pending'|'In progress'|'Success'|'Canceled'|'Expired';
+  limitTime?:number;
+  actualTime?:number;
+}
+
+export const tokenFinder= ()=>{
   let token=window.localStorage.getItem('todoToken')
   return token?token:''
 }
 
-const Url='http://localhost:3001'
+export const Url='http://localhost:3001'
 
-const options =(body:any,type:string)=> {
+export const options =(body:any,type:string,token:string)=> {
     return{
       method: type,
       headers: {
         "Content-Type": "application/json",
-        "token":tokenFinder()
+        "token":token
       },
       body: JSON.stringify(body)
     }
   };
-const loginOptions=(header:any,type:string)=>{
+export const loginOptions=(header:any,type:string)=>{
   return {
     method:type,
     headers:{
@@ -26,18 +40,3 @@ const loginOptions=(header:any,type:string)=>{
   }
 }
 
-
-  export const register= async (header:{userName:string,password:string})=>{
-    try{
-      const newUser= await fetch(`${Url}/register`,loginOptions(header,'GET'));
-      const data=await newUser.json();
-      return data;
-    }catch(err){console.log(err)}
-  }
-  export const login= async (header:{userName:string,password:string})=>{
-    try{
-      const user= await fetch(`${Url}/login`,loginOptions(header,'GET'));
-      const data=await user.json();
-      return data;
-    }catch(err){console.log(err)}
-  }

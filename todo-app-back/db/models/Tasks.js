@@ -8,7 +8,8 @@ module.exports=(sequelize)=>{
         creationDate:{type:DataTypes.DATE, allowNull:true,defaultValue:DataTypes.NOW},//ojito con los usos horarios
         finishDate:{type:DataTypes.DATE, allowNull:true,set(date){this.setDataValue('finishDate',date)}},
         status:{type:DataTypes.ENUM({values:['Pending','In progress','Success','Canceled','Expired']}),
-            defaultValue:'Pending',allowNull:false,set(data){this.setDataValue('status',data)}},
-        time:{type:DataTypes.INTEGER,allowNull:true,set(data){this.setDataValue('time',data)}}
+            defaultValue:'Pending',allowNull:false},
+        limitTime:{type:DataTypes.INTEGER,allowNull:true},
+        actualTime:{type:DataTypes.INTEGER,allowNull:true}
     })
 }

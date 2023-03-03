@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react';
-import { login } from '../../../API';
+// import { login } from '../../../API';
+import { useLogin } from '../API/Auth/useLogin';
 
 interface LoginFormReq{
     userName:string,
@@ -8,6 +9,7 @@ interface LoginFormReq{
 }
 
 export const useLoginForm = () => {
+    const {login}=useLogin()
     const [loginForm,setLoginForm]=useState<LoginFormReq>({
         userName:'',
         password:''
