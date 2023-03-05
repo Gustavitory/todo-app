@@ -8,17 +8,29 @@ const {Op}=require('sequelize');
 async function getTasks(req,res){//testeada todo ok
     const {token}=req.headers
     const {id}=jwt.decode(token,process.env.SECRET);
-    if(!token) return res.status(401).json({status:false,message:'Token is required'})
-    try{
-        const tasks= await Task.findAll({
+    const options=()=>{
+        return {
             where:{userId:id},
-            include:[User],
+            // include:[User],
             attributes:{
                 exclude:['createdAt','updatedAt','userId']
-            }
-        })
-        if (!tasks) return res.status(401).json({status:false,message:'No existen tareas'})
-        else return res.send({status:true,tasks})
+            },
+            order:[
+                ['order','ASC']
+            ]
+        }
+    }
+    if(!token) return res.status(401).json({status:false,message:'Token is required'})
+    try{
+        const all=await Task.findAll(options())
+        const pendingTasks= all.filter(el=>el.status==='Pending')
+        const inProgressTasks= all.filter(el=>el.status==='In progress')
+        const successTasks= all.filter(el=>el.status==='Success')
+        const canceledTasks= all.filter(el=>el.status==='Canceled')
+        const expiredTasks= all.filter(el=>el.status==='Expired')
+        const tasks={pendingTasks,inProgressTasks,successTasks,canceledTasks,expiredTasks}
+        // if (!tasks) return res.status(401).json({status:false,message:'No existen tareas'})
+        return res.send({status:true,tasks:tasks})
 
     }
     catch{(e)=>console.log(e,'Error en funcion getTasks')}
@@ -28,15 +40,15 @@ async function createTask(req,res){//testeada todo ok
     const {token}=req.headers
     if(!token) return res.status(401).json({status:false,message:'Token is required'})
     const {id}=jwt.decode(token,process.env.SECRET);
-    const {name,description,time}=req.body;
-    if(!name||!description||!time) return res.status(401).json({status:false,message:'name,description and time are required'})
+    const {name,description,limitTime}=req.body;
+    if(!name||!description||!limitTime) return res.status(401).json({status:false,message:'name,description and time are required'})
     try{
         const user=await User.findByPk(id);
         if(!user) return res.status(401).json({status:false,message:'User no existe'})
-        const task=await Task.create({name,description,time});
+        const task=await Task.create(req.body);
         const add=await user.addTask(task.id);
         if (!add) return res.status(401).json({status:false,message:'No se agrego la tarea'})
-        else return res.send({status:true,add})
+        else return res.send({status:true,message:'Tarea agregada'})
 
     }
     catch{(e)=>console.log(e,'Error en funcion createTask')}
@@ -98,6 +110,7 @@ async function deleteTask(req,res){//testeada todo ok
     const {id}=jwt.decode(token,process.env.SECRET);
     if(!token) return res.status(401).json({status:false,message:'Token is required'});
     const {taskId}=req.body;
+    console.log('task ID'+taskId)
     try{
         const task=await Task.findByPk(taskId);
         if(!task) return res.status(401).json({status:false,message:'la tarea no existe'})
@@ -105,7 +118,7 @@ async function deleteTask(req,res){//testeada todo ok
         await task.destroy();
         res.send({status:true,message:'Task deleted.'})
 
-    }catch{}
+    }catch(err){res.status(500).json({status:false,error:`Error: ${err}`})}
 }
 
 async function getMetricsLastWeek(req,res){//testeada todo ok

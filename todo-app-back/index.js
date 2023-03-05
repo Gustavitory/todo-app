@@ -16,8 +16,8 @@ conn.sync({ alter: true,force:true })
         const fechaSemana=moment().subtract(1,'week').toISOString();
         let creandoTasks=[
             Task.create({name:'tarea',description:'ololo'}),
-            Task.create({name:'tarea1',description:'ololo1',finishDate:new Date(fechaAyer)}),
-            Task.create({name:'tarea3',description:'ololo1',finishDate:new Date(fechaSemana)}),
+            Task.create({name:'tarea1',description:'ololo1',finishDate:new Date(fechaAyer),status:'In progress'}),
+            Task.create({name:'tarea3',description:'ololo1',finishDate:new Date(fechaSemana),status:'Success'}),
             Task.create({name:'tarea2',description:'ololo1',finishDate:new Date(fechaSemana)}),
             Task.create({name:'tarea4',description:'ololo1',finishDate:new Date(fechaSemana)}),
             Task.create({name:'tarea5',description:'ololo1',finishDate:new Date(fechaSemana)}),

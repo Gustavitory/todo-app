@@ -1,0 +1,12 @@
+.TextAreaCont{
+    position: relative;
+    margin-bottom: 25px;
+}
+.TextAreaCont textarea{
+    resize: none;
+    height: 3em;
+}
+.title{
+    padding: 5px 0;
+    margin: 0;
+}

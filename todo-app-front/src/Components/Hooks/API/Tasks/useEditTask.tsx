@@ -1,16 +1,15 @@
-import React from 'react';
-import { editCreateTask,tokenFinder,Url,options } from '../../../../API/index';
+import { tokenFinder,Url,postOptions } from '../../../../API/index';
 
 export const useEditTask = () => {
-    const editTask=async(body:editCreateTask)=>{
+    const editTask=async(body:any)=>{
         const token=tokenFinder();
         if(token){
           try{
-            const editTask=await fetch(`${Url}/tasks/edit`,options(body,'POST',token));
+            const editTask=await fetch(`${Url}/tasks/edit`,postOptions(body,'POST',token));
             const data=await editTask.json();
             if(!data||!data.status)throw new Error(data.message);
             else return data
-          }catch(err){alert('Error editando la lista')}
+          }catch(err){console.log('Error editando la lista: ',err)}
         }
       }
   return {editTask}
