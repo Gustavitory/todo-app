@@ -1,0 +1,27 @@
+.resumeCont span{
+    font-size: .6em;
+    font-weight: 700;
+}
+
+.resumeCont .infoCont{
+    padding:1em;
+    display: flex;
+    flex-direction: column;
+    gap:1em;
+}
+
+.resumeCont .infoCont .subInfoCont{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.statusCont{
+    background:var(--sta);
+    padding:.5em;
+    border-radius: 1em;
+}
+.gradeCont{
+    background:var(--gra);
+    padding:.5em;
+    border-radius: 1em;
+}

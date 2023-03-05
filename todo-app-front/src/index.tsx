@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { AppLayout } from './Components/Layout/App/AppLayout';
 import { Provider } from 'react-redux';
 import Store from './Redux/Store';
+import { Principal } from './Components/Screens/App/Principal';
 
 const router=createBrowserRouter([
   {
@@ -22,7 +23,7 @@ const router=createBrowserRouter([
     children:[
       {
         path:"",
-        element:<h1>Tareas</h1>,
+        element:<Principal/>,
         index:true
       },
       {

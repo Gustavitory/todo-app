@@ -19,7 +19,7 @@ export const tokenFinder= ()=>{
 
 export const Url='http://localhost:3001'
 
-export const options =(body:any,type:string,token:string)=> {
+export const postOptions =(body:any,type:string,token:string)=> {
     return{
       method: type,
       headers: {
@@ -27,6 +27,15 @@ export const options =(body:any,type:string,token:string)=> {
         "token":token
       },
       body: JSON.stringify(body)
+    }
+  };
+  export const getOptions =(token:string)=> {
+    return{
+      method: 'GET',
+      headers: {
+        "Content-Type": "application/json",
+        "token":token
+      }
     }
   };
 export const loginOptions=(header:any,type:string)=>{

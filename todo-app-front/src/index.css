@@ -41,7 +41,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-input{
+input,textarea,select{
   outline: none;
   background: white;
   border-radius: 4px;
@@ -50,6 +50,19 @@ input{
   border: 1px solid var(--border-input-color) ;
   width: 100%;
   font-size: 16px;
+}
+hr{
+  margin:0;
+    border: 1px solid var(--border-input-color) ;
+}
+select{
+  appearance:none ;
+}
+textarea{
+  min-height:6em;
+}
+li{
+  list-style: none;
 }
 
 .errorText{
@@ -60,7 +73,7 @@ input{
   font-size: 12px;
 }
 
-input.errorInput{
+input,textarea.errorInput{
   border: 1px solid var(--red);
 }
 .fade.modal.show{

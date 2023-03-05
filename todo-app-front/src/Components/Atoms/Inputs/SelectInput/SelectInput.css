@@ -1,0 +1,15 @@
+.selectCont{
+    position:relative
+}
+.selectCont::before{
+    content:'';
+    width:1em;
+    height: 1em;
+    border: 2px  solid var(--border-input-color);
+    border-top: none;
+    border-right: none;
+    position:absolute;
+    top:50%;
+    right: 0;
+    transform: rotate(45deg) translateX(-40%) translateY(100%);
+}

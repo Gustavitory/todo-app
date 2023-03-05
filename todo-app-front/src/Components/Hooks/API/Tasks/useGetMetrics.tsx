@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { tokenFinder,Url,options } from '../../../../API/index';
+import { tokenFinder,Url,postOptions } from '../../../../API/index';
 import { setTasks } from '../../../../Redux/Reducers/Tasks';
 
 export const useGetMetrics = () => {
@@ -9,7 +9,7 @@ export const useGetMetrics = () => {
     const token=tokenFinder();
     if(token){
       try{
-        const metrics=await fetch(`${Url}/tasks/metrics`,options({},'GET',token));
+        const metrics=await fetch(`${Url}/tasks/metrics`,postOptions({},'GET',token));
         const data=await metrics.json();
         if(!data||!data.status)throw new Error(data.message);
         else return dispatch(setTasks(data));

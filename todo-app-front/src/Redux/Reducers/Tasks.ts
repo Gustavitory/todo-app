@@ -4,7 +4,13 @@ import {createSlice} from '@reduxjs/toolkit'
 const tasks=createSlice({
     name:'tasks',
     initialState:{
-        allTasks:[],
+        allTasks:{
+            pendingTasks:[],
+            inProgressTasks:[],
+            successTasks:[],
+            canceledTasks:[],
+            expiredTasks:[]
+        },
         metricsData:[],
     },
     reducers:{
@@ -19,7 +25,7 @@ const tasks=createSlice({
                 ...state,
                 metricsData:action.payload
             }
-        }
+        },
     }
 })
 

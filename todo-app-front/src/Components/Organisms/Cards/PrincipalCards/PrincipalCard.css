@@ -1,0 +1,91 @@
+.principalCardCont{
+    display:flex;
+    align-items: center;
+    border: 1px solid var(--border-input-color);
+    width:max-content;
+    padding:.5em;
+    border-radius: .3em;
+    box-shadow: 1px 2px 10px var(--border-input-color);
+    gap:1em;
+}
+
+.principalCardCont .info hr{
+    margin:0;
+    border: 1px solid var(--border-input-color) ;
+}
+.overtime{
+    animation: 2s alert infinite linear;
+}
+@keyframes alert {
+    0%{
+        color:var(--danger-color)
+    }
+    80%{
+        color:black;
+    }
+}
+.principalCardCont .info .cardTitle{
+    font-size: 1.5em;
+    width:15ch;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow:hidden
+}
+
+.principalCardCont .info{
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
+}
+
+.principalCardCont .info .subInfo{
+    display:flex;
+    align-items:center;
+    gap:1em;
+}
+
+.principalCardCont .info .subInfo .status{
+    width:.7em;
+    height:.7em;
+    background: var(--sta);
+    border-radius: 1em;
+}
+.principalCardCont .info .subInfo .grade{
+    background:var(--gra);
+    color:white;
+    padding:.2em;
+    font-size:.8em;
+    border-radius: .3em;
+}
+.principalCardCont .time{
+    display: flex;
+    flex-direction: column;
+    gap:.3em;
+}
+.principalCardCont .time .clock .min{
+    font-size: 2em;
+    font-weight: 600;
+    width: 4ch;
+    margin:0;
+    display:flex;
+    gap:.1em;
+}
+.principalCardCont .time .clock .seg{
+    display: flex;
+    font-weight: 500;
+    gap:.7em;
+}
+
+.principalCardCont .time .controls{
+    display: flex;
+    gap:1em;
+    align-items: center;
+    justify-content: center;
+}
+.principalCardCont .time span{
+    font-size: .4em;
+    font-weight: 400;
+}
+.principalCardCont .time .controls .icon{
+    cursor:pointer;
+}

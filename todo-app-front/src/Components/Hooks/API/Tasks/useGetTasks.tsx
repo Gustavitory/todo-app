@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { tokenFinder,Url,options } from '../../../../API/index';
+import { tokenFinder,Url,getOptions } from '../../../../API/index';
 import { setTasks } from '../../../../Redux/Reducers/Tasks';
 
 export const useGetTasks = () => {
@@ -10,11 +10,11 @@ export const useGetTasks = () => {
     const token=tokenFinder();
     if(token){
       try{
-        const tasks=await fetch(`${Url}/tasks/`,options({},'GET',token));
+        const tasks=await fetch(`${Url}/tasks/`,getOptions(token));
         const data=await tasks.json();
         if(!data||!data.status)throw new Error(data.message);
-        else dispatch(setTasks(data));
-      }catch(err){alert('Error obteniendo las tasks')}
+        else dispatch(setTasks(data.tasks));
+      }catch(err){console.log('Error con tasks:', err)}
     }
   }
   return {getTasks}
