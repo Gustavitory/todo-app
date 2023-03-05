@@ -60,6 +60,13 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
   }
 
+  const verbos=[
+    'Hacer','Construir', 'Brincar', 'Aprender', 'Estudiar','Entrenar','Ayudar','Salir','Limpiar',"Bañar",'Jugar','Soñar','Abrazar','Asegurar'
+  ]
+  const sujetos=[
+    'Casa','Programa','Obstaculos','Productos','Ropa','Mascota','Documento','Amigo','Arbol','Cama','Edificio','Robot','Auto','Avion','Escuela'
+  ]
+
 async function createAleatoriesTasks(req,res){
     const {token}=req.headers
     if(!token) return res.status(401).json({status:false,message:'Token is required'})
@@ -68,11 +75,13 @@ async function createAleatoriesTasks(req,res){
         const promisesArray=[];
         const user=await User.findByPk(id);
         for(let i=0;i<50;i++){
-            const weekInit=moment().subtract({days:7}).add({days:getRandomInt(0,8)});
+            const weekInit=moment().subtract({days:6}).add({days:getRandomInt(0,6)});
             const dateRand= new Date(weekInit.toISOString().split('T')[0]);
             promisesArray.push(
-                    Task.create({name:`Task ${i+1}`,description:'Aleatory task',
-                    time:getRandomInt(100,3001),finishDate:new Date(dateRand)})
+                    Task.create({name:`${verbos[getRandomInt(0,verbos.length)]} ${sujetos[getRandomInt(0,sujetos.length)]}`,description:'Aleatory task',
+                    limitTime:getRandomInt(10,90),finishDate:new Date(dateRand),
+                    grade:getRandomInt(0,3),creationDate:new Date(moment().subtract({months:1}).toISOString().split('T')[0])
+                })
                     .then((task)=>user.addTask(task.id))
             );
         }
