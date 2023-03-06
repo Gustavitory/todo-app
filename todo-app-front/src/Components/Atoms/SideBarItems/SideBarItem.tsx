@@ -14,7 +14,7 @@ export const SideBarItem = ({Icon,title,selected,click}:SideBarItemProps) => {
         <div className={`itemCont${title===selected?' activeItem':''}`} onClick={click}>
           <div className="iconTitle">
             <Icon/>
-            <p>{title}</p>
+            <p className='title'>{title}</p>
           </div>
         </div>
       </div>
