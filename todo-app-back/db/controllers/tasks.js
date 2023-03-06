@@ -134,7 +134,7 @@ async function deleteTask(req,res){//testeada todo ok
 
 async function getMetricsLastWeek(req,res){//testeada todo ok
     const today=moment();
-    const sevenDaysAgo={days:7,hours:today.hours(),minutes:today.minutes()};
+    const sevenDaysAgo={days:6,hours:today.hours(),minutes:today.minutes()};
     const weekInit=moment().subtract(sevenDaysAgo);
     const {token}=req.headers
     const {id}=jwt.decode(token,process.env.SECRET);
@@ -147,7 +147,7 @@ async function getMetricsLastWeek(req,res){//testeada todo ok
             console.log(day.toISOString())
             console.log(finishDate.toISOString())
             distintosDias.push(
-                Task.count({where:{userId:id,finishDate:{[Op.between]:[new Date(day.toISOString()),new Date(finishDate.toISOString())]}}})
+                Task.count({where:{userId:id,status:'Success',finishDate:{[Op.between]:[new Date(day.toISOString()),new Date(finishDate.toISOString())]}}})
             )
         }
         const tasks=await Promise.all(distintosDias)

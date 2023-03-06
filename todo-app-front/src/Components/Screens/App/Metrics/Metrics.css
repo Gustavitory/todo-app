@@ -1,0 +1,25 @@
+.metricsCont .cabecera {
+    display:grid;
+    grid-template-columns: repeat(auto-fit,minmax(20em,1fr));
+    align-items: center;
+    width: 100%;
+}
+hr{
+    width:100%;
+}
+.metricsCont .cabecera .graphicCont{
+   display:flex;
+   align-items: center;
+   justify-content: center;
+}
+.metricsCont{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.metricsCont .cardsCont{
+    display: grid;
+    width:100%;
+    grid-template-columns: repeat(auto-fit,minmax(20em,1fr));
+    gap:.5em;
+}
