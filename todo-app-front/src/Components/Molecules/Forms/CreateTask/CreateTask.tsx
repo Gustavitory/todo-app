@@ -1,7 +1,5 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { useRegisterForm } from '../../../Hooks/Forms/useRegisterForm';
-import { PasswordInput } from '../../../Atoms/Inputs/PasswordInput/PasswordInput';
 import { StandardInput } from '../../../Atoms/Inputs/StandardInput/StandardInput';
 import { useCreateTaskForm } from '../../../Hooks/Forms/useCreateTaskForm';
 import { TextArea } from '../../../Atoms/Inputs/TextArea/TextArea';

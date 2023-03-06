@@ -4,20 +4,22 @@ import {createSlice} from '@reduxjs/toolkit'
 const tasks=createSlice({
     name:'tasks',
     initialState:{
-        allTasks:{
-            pendingTasks:[],
-            inProgressTasks:[],
-            successTasks:[],
-            canceledTasks:[],
-            expiredTasks:[]
-        },
+        pendingTasks:[],
+        inProgressTasks:[],
+        successTasks:[],
+        canceledTasks:[],
+        expiredTasks:[],
         metricsData:[],
     },
     reducers:{
         setTasks(state,action){
             return {
                 ...state,
-                allTasks:action.payload
+                pendingTasks:action.payload.pendingTasks,
+                inProgressTasks:action.payload.inProgressTasks,
+                successTasks:action.payload.successTasks,
+                canceledTasks:action.payload.canceledTasks,
+                expiredTasks:action.payload.expiredTasks
             }
         },
         setMetrics(state,action){
@@ -26,6 +28,24 @@ const tasks=createSlice({
                 metricsData:action.payload
             }
         },
+        // filtterPending(state,action){
+        //     return {
+        //         ...state,
+        //         pendingTasks:state.pendingTasks.filter((el)=>action.payload(el))
+        //     }
+        // },
+        // filtterInProgress(state,action){
+        //     return {
+        //         ...state,
+        //         inProgressTasks:state.inProgressTasks.filter((el)=>action.payload(el))
+        //     }
+        // },
+        // filtterSuccess(state,action){
+        //     return {
+        //         ...state,
+        //         successTasks:state.successTasks.filter((el)=>action.payload(el))
+        //     }
+        // },
     }
 })
 

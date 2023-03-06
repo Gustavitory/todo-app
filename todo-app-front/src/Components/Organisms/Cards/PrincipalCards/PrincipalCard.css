@@ -44,6 +44,10 @@
     gap:1em;
 }
 
+.principalCardCont .info .subInfo .icon{
+    cursor:pointer;
+}
+
 .principalCardCont .info .subInfo .status{
     width:.7em;
     height:.7em;

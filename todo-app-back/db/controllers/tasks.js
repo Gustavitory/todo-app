@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const {Task,User}=require('../db');
 const moment=require('moment');
 moment().format();
-const {Op}=require('sequelize');
+const {Op,fn,col}=require('sequelize');
 
 
 async function getTasks(req,res){//testeada todo ok
@@ -67,6 +67,8 @@ function getRandomInt(min, max) {
     'Casa','Programa','Obstaculos','Productos','Ropa','Mascota','Documento','Amigo','Arbol','Cama','Edificio','Robot','Auto','Avion','Escuela'
   ]
 
+  const posibleStatus=['Pending','In progress','Success']
+
 async function createAleatoriesTasks(req,res){
     const {token}=req.headers
     if(!token) return res.status(401).json({status:false,message:'Token is required'})
@@ -79,7 +81,7 @@ async function createAleatoriesTasks(req,res){
             const dateRand= new Date(weekInit.toISOString().split('T')[0]);
             promisesArray.push(
                     Task.create({name:`${verbos[getRandomInt(0,verbos.length)]} ${sujetos[getRandomInt(0,sujetos.length)]}`,description:'Aleatory task',
-                    limitTime:getRandomInt(10,90),finishDate:new Date(dateRand),
+                    limitTime:getRandomInt(10,90),finishDate:new Date(dateRand),status:posibleStatus[getRandomInt(0,posibleStatus.length)],
                     grade:getRandomInt(0,3),creationDate:new Date(moment().subtract({months:1}).toISOString().split('T')[0])
                 })
                     .then((task)=>user.addTask(task.id))
@@ -131,30 +133,34 @@ async function deleteTask(req,res){//testeada todo ok
 }
 
 async function getMetricsLastWeek(req,res){//testeada todo ok
-
-    //En esta parte identificamos las fechas de inicio y fin de la semana
     const today=moment();
-    const weekDay={days:today.day(),hours:today.hours(),minutes:today.minutes()};
-    const weekInit=moment().subtract(weekDay).add({days:1});
+    const sevenDaysAgo={days:7,hours:today.hours(),minutes:today.minutes()};
+    const weekInit=moment().subtract(sevenDaysAgo);
     const dateInit= new Date(weekInit.toISOString().split('T')[0]);
 
-    // res.send('La semana laboral inicio en :'+ dateInit + ' Y termina:'+ dateFinish)
+
     const {token}=req.headers
     const {id}=jwt.decode(token,process.env.SECRET);
     if(!token) return res.status(401).json({status:false,message:'Token is required'})
     try{
-        const tasks= await Task.findAll({
-            where:{
-                userId:id,
-                finishDate:{
-                    [Op.between]:[dateInit,new Date()]
-                }
-            },
-            // include:[User],
-            attributes:{
-                exclude:['createdAt','updatedAt','userId']
-            }
-        })
+        const distintosDias=[];
+        for(let i=0;i<7;i++){
+            // let day=weekInit.add({days:i}).toISOString().split('T')[0];
+            let day=moment(weekInit.toISOString().split('T')[0]).add({days:i}).toISOString().split('T')[0];
+            console.log(day)
+            distintosDias.push(
+                Task.count({where:{userId:id,finishDate:day}})
+            )
+        }
+        // const tasks= await Task.count({
+        //     where:{
+        //         userId:id,
+        //         finishDate:{
+        //             [Op.between]:[dateInit,new Date()]
+        //         }
+        //     }
+        // })
+        const tasks=await Promise.all(distintosDias)
         if (!tasks.length) return res.status(200).json({status:true,tasks})
         else return res.send({status:true,tasks})
 
