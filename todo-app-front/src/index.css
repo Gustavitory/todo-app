@@ -73,9 +73,9 @@ li{
   font-size: 12px;
 }
 
-input,textarea.errorInput{
+/* input,textarea.errorInput{
   border: 1px solid var(--red);
-}
+} */
 .fade.modal.show{
   backdrop-filter: blur(10px);
 }
