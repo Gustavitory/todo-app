@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const {Task,User}=require('../db');
 const moment=require('moment');
 moment().format();
-const {Op,fn,col}=require('sequelize');
+const {Op}=require('sequelize');
 
 
 async function getTasks(req,res){//testeada todo ok
@@ -59,6 +59,9 @@ function getRandomInt(min, max) {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min) + min);
   }
+  function getRandomDecimal(min,max){
+    return (Math.random()*(max-min))+min
+  }
 
   const verbos=[
     'Hacer','Construir', 'Brincar', 'Aprender', 'Estudiar','Entrenar','Ayudar','Salir','Limpiar',"Bañar",'Jugar','Soñar','Abrazar','Asegurar'
@@ -77,11 +80,12 @@ async function createAleatoriesTasks(req,res){
         const promisesArray=[];
         const user=await User.findByPk(id);
         for(let i=0;i<50;i++){
-            const weekInit=moment().subtract({days:6}).add({days:getRandomInt(0,6)});
+            const weekInit=moment().subtract({days:6}).add({days:getRandomInt(0,7)});
             const dateRand= new Date(weekInit.toISOString().split('T')[0]);
+            const limit=getRandomInt(10,90);
             promisesArray.push(
                     Task.create({name:`${verbos[getRandomInt(0,verbos.length)]} ${sujetos[getRandomInt(0,sujetos.length)]}`,description:'Aleatory task',
-                    limitTime:getRandomInt(10,90),finishDate:new Date(dateRand),status:posibleStatus[getRandomInt(0,posibleStatus.length)],
+                    limitTime:limit,finishDate:new Date(dateRand),status:'Success',actualTime:limit*getRandomDecimal(0.8,1),
                     grade:getRandomInt(0,3),creationDate:new Date(moment().subtract({months:1}).toISOString().split('T')[0])
                 })
                     .then((task)=>user.addTask(task.id))
