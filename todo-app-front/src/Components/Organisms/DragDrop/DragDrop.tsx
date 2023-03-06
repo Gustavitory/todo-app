@@ -19,7 +19,7 @@ export const DragDrop = () => {
             case 'In progress':
                 return inProgressTasks
             case 'Success':
-                return successTasks
+                return successTasks.filter((task:any)=>task.finishDate.split('T')[0]===new Date().toISOString().split('T')[0])
             default:
                 return []
         }

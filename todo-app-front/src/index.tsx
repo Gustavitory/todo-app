@@ -25,10 +25,6 @@ const router=createBrowserRouter([
         path:"",
         element:<Principal/>,
         index:true
-      },
-      {
-        path:'metrics',
-        element:<h1>Metricas</h1>
       }
     ]
   }

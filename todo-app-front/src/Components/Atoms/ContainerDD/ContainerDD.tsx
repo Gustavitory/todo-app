@@ -56,7 +56,7 @@ export const ContainerDD = ({status,data,isDraggin,handleDraggin,isSuccess}:cont
         e.preventDefault();
         const id=e.dataTransfer.getData('text');
         console.log(e.dataTransfer.getData('text'),status);
-        editTask({taskId:id,props:{status}})
+        editTask({taskId:id,props:{status,finishDate:status==='Success'?new Date():null}})
         .then(()=>getTasks())
         handleDraggin(false);
     }
