@@ -10,7 +10,7 @@ const config={
         cors:{
             server:[
                 {
-                origin:"*",
+                origin:"https://todo-app-one-tau-77.vercel.app",
                 credentials:true
                 }
             ]

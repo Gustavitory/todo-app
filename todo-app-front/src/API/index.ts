@@ -17,7 +17,7 @@ export const tokenFinder= ()=>{
   return token?token:''
 }
 
-export const Url='http://localhost:3001'
+export const Url='https://todoappserver-km9a.onrender.com'
 
 export const postOptions =(body:any,type:string,token:string)=> {
     return{
