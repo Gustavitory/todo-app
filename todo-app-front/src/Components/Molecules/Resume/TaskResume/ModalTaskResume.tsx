@@ -12,7 +12,7 @@ interface modalRegisterFormProps{
         description:string,
         creationDate:Date,//ojito con los usos horarios
         finishDate:Date|null,
-        status:'Pending'|'In progress'|'Success'|'Canceled'|'Expired',
+        status:'Pending'|'In progress'|'Success'|'Canceled'|'Expired'|'Paused',
         limitTime:number,
         actualTime:number,
         grade:number,
@@ -20,23 +20,14 @@ interface modalRegisterFormProps{
     }
 }
 export function ModalTaskResume({controller,state,task}:modalRegisterFormProps) {
-//   const {submit,change,gradeOptions,editForm}=useEditForm(taskId)
 
-//   const registrar=(e:React.FormEvent)=>{
-//     submit(e)
-//     .then(()=>controller(false))
-//   }
-    const {name,description,id,creationDate,finishDate,status,limitTime,actualTime,grade}=task;
+    const {name,description,creationDate,finishDate,status,limitTime,actualTime,grade}=task;
     const {gradeProps,statusColor,timeCalc}=useColorsTasks()
     const {color,text,Icon}=gradeProps(grade);
     const limit=timeCalc(limitTime);
     const current=timeCalc(actualTime);
   return (
     <>
-      {/* <Button variant="primary" onClick={()=>controller(true)}>
-        Regístrate
-      </Button> */}
-
       <Modal show={state} onHide={()=>controller(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Informacion:</Modal.Title>
@@ -54,7 +45,10 @@ export function ModalTaskResume({controller,state,task}:modalRegisterFormProps) 
                     <p className='fecha'>Fecha de creacion: {creationDate.toString().split('T')[0]}</p>
                     <p className='fecha'>Fecha de culminacion: {finishDate?finishDate.toString().split('T')[0]:'-'}</p>
                     <div className='subInfoCont'>
-                        <div className='infoClock'>{current.min}<span>min</span> / {limit.min}<span>min</span></div>
+                      <div>
+                        <p>Tiempo:</p>
+                        <div className='infoClock'>{current.min}<span>min</span> {current.seg} <span>seg</span> / {limit.min}<span>min</span> {limit.seg} <span>seg</span></div>
+                      </div>
                         <div className='statusCont' style={{'--sta':`var(${statusColor(status)})`}as statusColor}>{status}</div>
                         <div className='gradeCont' style={{'--gra':`var(${color})`} as gradeColor}><Icon/>{text}</div>
                     </div>
@@ -71,8 +65,6 @@ export function ModalTaskResume({controller,state,task}:modalRegisterFormProps) 
           <Button variant="secondary" onClick={()=>controller(false)}>
             Cerrar
           </Button>
-          {/* <Button variant="primary" onClick={(e)=>registrar(e)}> */}
-          {/* </Button> */}
         </Modal.Footer>
       </Modal>
     </>

@@ -1,5 +1,3 @@
-import React from 'react'
-import { useDispatch } from 'react-redux'
 import Swal from 'sweetalert2';
 import { tokenFinder,Url,postOptions } from '../../../../API/index';
 import { useGetTasks } from './useGetTasks';
@@ -14,7 +12,7 @@ export const useRandomTasks = () => {
             const data=await randomTask.json();
             if(!data||!data.status)throw new Error(data.message);
             else Swal.fire({
-              title:'Se han generado 50 tareas aleatorias',
+              title:'Se han generado 50 tareas aleatorias!',
               confirmButtonColor:'var(--primary-color)',
               icon:'warning'
             })

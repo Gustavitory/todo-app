@@ -1,0 +1,19 @@
+.layoutCards{
+    border:solid 1px var(--border-input-color);
+    min-height:30em;
+    padding: 1em;
+    border-radius: 1em;
+    box-shadow: 1px 2px 10px var(--border-input-color);
+    transition:.25s;
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
+}
+.layoutCards.layoutDraggin{
+    border-style: dashed;
+}
+.filterOrder{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap:1em;
+}
