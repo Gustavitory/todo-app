@@ -136,34 +136,23 @@ async function getMetricsLastWeek(req,res){//testeada todo ok
     const today=moment();
     const sevenDaysAgo={days:7,hours:today.hours(),minutes:today.minutes()};
     const weekInit=moment().subtract(sevenDaysAgo);
-    const dateInit= new Date(weekInit.toISOString().split('T')[0]);
-
-
     const {token}=req.headers
     const {id}=jwt.decode(token,process.env.SECRET);
     if(!token) return res.status(401).json({status:false,message:'Token is required'})
     try{
         const distintosDias=[];
         for(let i=0;i<7;i++){
-            // let day=weekInit.add({days:i}).toISOString().split('T')[0];
-            let day=moment(weekInit.toISOString().split('T')[0]).add({days:i}).toISOString().split('T')[0];
-            console.log(day)
+            let day=moment(weekInit.toISOString().split('T')[0]).add({days:i});
+            let finishDate=moment(day.toISOString()).add({hour:23,minutes:59,seconds:59});
+            console.log(day.toISOString())
+            console.log(finishDate.toISOString())
             distintosDias.push(
-                Task.count({where:{userId:id,finishDate:day}})
+                Task.count({where:{userId:id,finishDate:{[Op.between]:[new Date(day.toISOString()),new Date(finishDate.toISOString())]}}})
             )
         }
-        // const tasks= await Task.count({
-        //     where:{
-        //         userId:id,
-        //         finishDate:{
-        //             [Op.between]:[dateInit,new Date()]
-        //         }
-        //     }
-        // })
         const tasks=await Promise.all(distintosDias)
         if (!tasks.length) return res.status(200).json({status:true,tasks})
         else return res.send({status:true,tasks})
-
     }
     catch{(e)=>console.log(e,'Error en funcion getTasks')}
 }
