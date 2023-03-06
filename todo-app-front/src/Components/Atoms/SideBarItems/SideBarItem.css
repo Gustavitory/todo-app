@@ -55,6 +55,7 @@
   }
   .allCont{
     position:relative;
+    width: 100%;
   }
   .subMenu{
     position:absolute;
@@ -67,4 +68,13 @@
   .subMenu.subMenuOpen{
     position:static;
     clip:none;
+  }
+
+  @media (max-width:800px){
+    .title{
+      /* display:none; */
+    }
+    li{
+      width: fit-content;
+    }
   }
