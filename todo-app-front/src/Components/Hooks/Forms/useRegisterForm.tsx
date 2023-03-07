@@ -45,6 +45,7 @@ export const useRegisterForm = () => {
         }
         else if(password!==confirmPassword){
             validations.confirmPassword='Las contraseñas deben coincidir.'
+            isValid=false
         }
         setErrors({...validations});
         return isValid;
