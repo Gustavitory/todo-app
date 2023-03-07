@@ -13,7 +13,9 @@ export function ModalRegisterForm({controller,state}:modalRegisterFormProps) {
 
   const registrar=(e:React.FormEvent)=>{
     submit(e)
-    .then(()=>controller(false))
+    .then((res)=>{
+       if(res && res.status)controller(false)
+    })
   }
   return (
     <>

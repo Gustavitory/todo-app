@@ -55,7 +55,10 @@ export const useRegisterForm = () => {
         let isValid=checkForm();
         if(isValid){
             return register({userName:loginForm.userName,password:loginForm.password})
-            .then(()=>reset())
+            .then((res)=>{
+                reset()
+                return {status:true}
+            })
         }
     }
     const reset=()=>{
