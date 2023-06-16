@@ -1,7 +1,23 @@
-import {createSlice} from '@reduxjs/toolkit'
+import {SliceCaseReducers, createSlice} from '@reduxjs/toolkit'
 
+type tasksProps={
+    pendingTasks: Record<string,any>[];
+    inProgressTasks: Record<string,any>[];
+    successTasks: Record<string,any>[];
+    canceledTasks: Record<string,any>[];
+    expiredTasks: Record<string,any>[];
+    metricsData: Record<string,any>[];
+}
+const InitialState:tasksProps={
+    pendingTasks:[],
+    inProgressTasks:[],
+    successTasks:[],
+    canceledTasks:[],
+    expiredTasks:[],
+    metricsData:[],
+}
 
-const tasks=createSlice({
+const tasks=createSlice<tasksProps,SliceCaseReducers<typeof InitialState>>({
     name:'tasks',
     initialState:{
         pendingTasks:[],
@@ -28,6 +44,12 @@ const tasks=createSlice({
                 metricsData:action.payload
             }
         },
+        createTaskAction(state,action){
+            return {
+                ...state,
+                pendingTasks:[...state.pendingTasks,action.payload]
+            }
+        }
         // filtterPending(state,action){
         //     return {
         //         ...state,
@@ -49,5 +71,5 @@ const tasks=createSlice({
     }
 })
 
-export const {setTasks,setMetrics}=tasks.actions;
+export const {setTasks,setMetrics,createTaskAction}=tasks.actions;
 export default tasks.reducer;
