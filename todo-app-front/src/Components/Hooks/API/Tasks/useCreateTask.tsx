@@ -1,16 +1,11 @@
-import { editCreateTask,tokenFinder,Url,postOptions } from '../../../../API/index';
+import { useDispatch } from "react-redux";
+import { editCreateTask } from "../../../../API/index";
+import { createTaskAction } from "../../../../Redux/Reducers/Tasks";
 
 export const useCreateTask = () => {
-    const createTask=async(body:editCreateTask)=>{
-        const token=tokenFinder();
-        if(token){
-          try{
-            const newTask=await fetch(`${Url}/tasks/create`,postOptions(body,'POST',token));
-            const data=await newTask.json();
-            if(!data||!data.status)throw new Error(data.message);
-            else return data
-          }catch(err){alert('Error creando la task')}
-        }
-      }
-  return {createTask}
-}
+  const dispatch = useDispatch();
+  const createTask = (body: any) => {
+    dispatch(createTaskAction(body));
+  };
+  return { createTask };
+};
