@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorPage from "./Components/Screens/ErrorScreen/ErrorScreen";
-import { LandingPage } from "./Components/Screens/Landing/LandingPage";
+// import { LandingPage } from "./Components/Screens/Landing/LandingPage";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { AppLayout } from "./Components/Layout/App/AppLayout";
 import { Provider } from "react-redux";
