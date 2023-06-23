@@ -43,11 +43,6 @@ export const usePrincipalCard = (info: any, handleDraggin: any) => {
       } else setStatusCopia("In progress");
     }
   }, [isPaused]);
-  //   useEffect(() => {
-  //     if (currentTime >= limitTime) {
-  //       editTask({ taskId: id, props: { status: "Success" } });
-  //     }
-  //   }, [currentTime, limitTime]);
 
   const reset = () => {
     setCurrentTime(0);
