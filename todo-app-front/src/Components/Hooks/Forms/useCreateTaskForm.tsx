@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import Swal from "sweetalert2";
 import { useCreateTask } from "../API/Tasks/useCreateTask";
 import { useGetTasks } from "../API/Tasks/useGetTasks";
@@ -11,33 +10,23 @@ export interface createFormReq {
   limitTime: number;
   grade: string;
   order: number;
-  creationDate: Date;
-  finishDate: null | Date;
+  creationDate: string;
+  finishDate: null | string;
   status: string;
   actualTime: number;
 }
-// id:string,
-// name:string,
-// description:string,
-// creationDate:Date,//ojito con los usos horarios
-// finishDate:Date|null,
-// status:'Pending'|'In progress'|'Success'|'Canceled'|'Expired'|'Paused',
-// limitTime:number,
-// actualTime:number,
-// grade:number,
-// order:number
 
 export const useCreateTaskForm = () => {
   const { getTasks } = useGetTasks();
   const { createTask } = useCreateTask();
+  const date = new Date();
   const initialState = {
-    id: uuidv4(),
     name: "",
     description: "",
     limitTime: 0,
     grade: "0",
     order: 0,
-    creationDate: new Date(),
+    creationDate: date.toISOString(),
     finishDate: null,
     status: "Pending",
     actualTime: 0,
@@ -87,7 +76,11 @@ export const useCreateTaskForm = () => {
     e.preventDefault();
     let isValid = checkForm();
     if (isValid) {
-      createTask({ ...createForm, grade: parseInt(createForm.grade) });
+      createTask({
+        ...createForm,
+        grade: parseInt(createForm.grade),
+        id: uuidv4(),
+      });
       return await Swal.fire({
         title: "¡Tarea creada!",
         icon: "success",

@@ -1,23 +1,10 @@
-import { useSelector } from "react-redux";
-import { tokenFinder, Url, postOptions } from "../../../../API/index";
+import { useDispatch } from "react-redux";
+import { editTask as edit } from "../../../../Redux/Reducers/Tasks";
 
 export const useEditTask = () => {
-  const tasks = useSelector((state: any) => state.tasks);
-  const editTask = async (body: any) => {
-    const token = tokenFinder();
-    if (token) {
-      try {
-        const editTask = await fetch(
-          `${Url}/tasks/edit`,
-          postOptions(body, "POST", token)
-        );
-        const data = await editTask.json();
-        if (!data || !data.status) throw new Error(data.message);
-        else return data;
-      } catch (err) {
-        console.log("Error editando la lista: ", err);
-      }
-    }
+  const dispatch = useDispatch();
+  const editTask = (body: any) => {
+    dispatch(edit(body));
   };
   return { editTask };
 };
