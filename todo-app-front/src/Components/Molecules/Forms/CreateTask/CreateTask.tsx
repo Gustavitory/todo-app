@@ -20,7 +20,7 @@ export function CreateTaskForm({ controller, state }: modalRegisterFormProps) {
   return (
     <>
       <Button variant="primary" onClick={() => controller(true)}>
-        +
+        + Agregar task
       </Button>
 
       <Modal show={state} onHide={() => controller(false)}>
