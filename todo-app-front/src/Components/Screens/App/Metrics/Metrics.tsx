@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { memo, useState } from "react";
 import { useGetMetrics } from "../../../Hooks/API/Tasks/useGetMetrics";
 import { useSelector } from "react-redux";
 import { VictoryAxis, VictoryBar, VictoryChart, VictoryTheme } from "victory";
@@ -6,16 +6,12 @@ import "./Metrics.css";
 import { MetricsResume } from "../../../Molecules/MetricsResume/MetricsResume";
 import { PrincipalCard } from "../../../Organisms/Cards/PrincipalCards/PrincipalCard";
 
-export const Metrics = () => {
+const Metrics = memo(function Metrics() {
   const { getMetrics } = useGetMetrics();
-  const metrics = useSelector((state: any) => state.tasks.metricsData);
+  const [mData] = useState<number[]>(getMetrics());
   const successTasks = useSelector((state: any) =>
     state.tasks.tasksList.filter((task: any) => task.status === "Success")
   );
-
-  useEffect(() => {
-    getMetrics();
-  });
 
   const diasAtras = (dias: number) => {
     let hoy = new Date().getDay();
@@ -43,15 +39,15 @@ export const Metrics = () => {
     }
   };
 
-  const data = metrics.length
+  const data = mData.length
     ? [
-        { dia: weekDay(6), tasks: metrics[0] },
-        { dia: weekDay(5), tasks: metrics[1] },
-        { dia: weekDay(4), tasks: metrics[2] },
-        { dia: weekDay(3), tasks: metrics[3] },
-        { dia: weekDay(2), tasks: metrics[4] },
-        { dia: weekDay(1), tasks: metrics[5] },
-        { dia: weekDay(0), tasks: metrics[6] },
+        { dia: weekDay(6), tasks: mData[0] },
+        { dia: weekDay(5), tasks: mData[1] },
+        { dia: weekDay(4), tasks: mData[2] },
+        { dia: weekDay(3), tasks: mData[3] },
+        { dia: weekDay(2), tasks: mData[4] },
+        { dia: weekDay(1), tasks: mData[5] },
+        { dia: weekDay(0), tasks: mData[6] },
       ]
     : [];
   return (
@@ -70,7 +66,7 @@ export const Metrics = () => {
             />
           </VictoryChart>
         </div>
-        <MetricsResume dias={metrics} />
+        <MetricsResume dias={mData} />
       </div>
       <hr />
       <h3>Historial</h3>
@@ -79,9 +75,12 @@ export const Metrics = () => {
           <PrincipalCard
             info={el}
             handleDraggin={(draggin: boolean) => false}
+            key={ind}
           />
         ))}
       </div>
     </div>
   );
-};
+});
+
+export default Metrics;

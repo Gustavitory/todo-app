@@ -2,23 +2,15 @@ import {SliceCaseReducers, createSlice} from '@reduxjs/toolkit'
 
 type tasksProps={
     tasksList:Record<string,any>[];
-    metricsData: Record<string,any>[];
 }
 const InitialState:tasksProps={
-    tasksList:[],
-    metricsData:[],
+    tasksList:[]
 }
 
 const tasks=createSlice<tasksProps,SliceCaseReducers<typeof InitialState>>({
     name:'tasks',
     initialState:InitialState,
     reducers:{
-        setMetrics(state,action){
-            return {
-                ...state,
-                metricsData:action.payload
-            }
-        },
         createTaskAction(state,action){
             return {
                 ...state,
@@ -67,5 +59,5 @@ const tasks=createSlice<tasksProps,SliceCaseReducers<typeof InitialState>>({
     }
 })
 
-export const {setMetrics,createTaskAction,deleteTask,editTask}=tasks.actions;
+export const {createTaskAction,deleteTask,editTask}=tasks.actions;
 export default tasks.reducer;

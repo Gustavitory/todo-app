@@ -64,10 +64,11 @@ export function ModalTaskResume({
             <div className="infoCont">
               <span>datos</span>
               <p className="fecha">
-                Fecha de creacion: {creationDate.toString()}
+                Fecha de creacion: {creationDate.split("T")[0]}
               </p>
               <p className="fecha">
-                Fecha de culminacion: {finishDate ? finishDate.toString() : "-"}
+                Fecha de culminacion:{" "}
+                {finishDate ? finishDate.split("T")[0] : "-"}
               </p>
               <div className="subInfoCont">
                 <div>
