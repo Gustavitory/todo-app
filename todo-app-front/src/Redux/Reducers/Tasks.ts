@@ -27,7 +27,6 @@ const tasks=createSlice<tasksProps,SliceCaseReducers<typeof InitialState>>({
             }
         },
         editTask(state,action){
-            // console.log(action.payload)
             let list=[...state.tasksList]
             let index=list.findIndex((el)=>el.id===action.payload.taskId);
             let newObject=Object.assign({...list[index]},{...action.payload.props});
@@ -38,24 +37,6 @@ const tasks=createSlice<tasksProps,SliceCaseReducers<typeof InitialState>>({
                 tasksList:list
             }
         }
-        // filtterPending(state,action){
-        //     return {
-        //         ...state,
-        //         pendingTasks:state.pendingTasks.filter((el)=>action.payload(el))
-        //     }
-        // },
-        // filtterInProgress(state,action){
-        //     return {
-        //         ...state,
-        //         inProgressTasks:state.inProgressTasks.filter((el)=>action.payload(el))
-        //     }
-        // },
-        // filtterSuccess(state,action){
-        //     return {
-        //         ...state,
-        //         successTasks:state.successTasks.filter((el)=>action.payload(el))
-        //     }
-        // },
     }
 })
 
