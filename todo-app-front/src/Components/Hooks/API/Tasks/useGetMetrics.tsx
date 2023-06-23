@@ -39,10 +39,12 @@ export const useGetMetrics = () => {
     const distintosDias: number[] = [];
     for (let i = 0; i < 7; i++) {
       let day = moment(weekInit.toISOString().split("T")[0]).add({ days: i });
-      let counter = tasksList.filter(
-        (el: any) =>
-          el.finishDate.split("T")[0] === day.toISOString().split("T")[0]
-      ).length;
+      let counter = tasksList
+        .filter((el: any) => el.status === "Success")
+        .filter(
+          (el: any) =>
+            el.finishDate.split("T")[0] === day.toISOString().split("T")[0]
+        ).length;
       distintosDias.push(counter);
     }
     console.log(distintosDias);
