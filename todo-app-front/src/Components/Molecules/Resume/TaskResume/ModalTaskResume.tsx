@@ -13,8 +13,8 @@ interface modalRegisterFormProps {
     id: string;
     name: string;
     description: string;
-    creationDate: Date; //ojito con los usos horarios
-    finishDate: Date | null;
+    creationDate: string; //ojito con los usos horarios
+    finishDate: string | null;
     status:
       | "Pending"
       | "In progress"
